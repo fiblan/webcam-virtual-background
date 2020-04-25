@@ -25,15 +25,11 @@ fake = pyfakewebcam.FakeWebcam('/dev/video2', width, height)
 
 # declare global variables
 background = None
-foreground = None
-f_mask = None
-inv_f_mask = None
 rem_mask = None
 rem = 10
 
 def load_images():
     global background
-    global foreground
     global f_mask
     global inv_f_mask
 
@@ -41,19 +37,10 @@ def load_images():
     background = cv2.imread("background.jpg")
     background = cv2.resize(background, (width, height))
 
-    foreground = cv2.imread("foreground.jpg")
-    foreground = cv2.resize(foreground, (width, height))
-
-    f_mask = cv2.imread("foreground-mask.png")
-    f_mask = cv2.normalize(f_mask, None, alpha=0, beta=1,
-                        norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
-    f_mask = cv2.resize(f_mask, (width, height))
-    f_mask = cv2.cvtColor(f_mask, cv2.COLOR_BGR2GRAY)
-    inv_f_mask = 1 - f_mask
 
 def handler(signal_received, frame):
     load_images()
-    print('Reloaded the background and foreground images')
+    print('Reloaded the background image')
 
 def get_mask(frame, bodypix_url='http://127.0.0.1:9000'):
     frame = cv2.resize(frame, (0, 0), fx=sf, fy=sf)
@@ -66,7 +53,7 @@ def get_mask(frame, bodypix_url='http://127.0.0.1:9000'):
     mask = mask.reshape((frame.shape[0], frame.shape[1]))
     mask = cv2.resize(mask, (0, 0), fx=1/sf, fy=1/sf,
                       interpolation=cv2.INTER_NEAREST)
-    mask = cv2.dilate(mask, np.ones((30,30), np.uint8) , iterations=1)
+    mask = cv2.dilate(mask, np.ones((15,15), np.uint8) , iterations=1)
     mask = cv2.blur(mask.astype(float), (50,50))
     return mask
 
@@ -103,13 +90,10 @@ def get_frame(cap, background):
         rem+=1
         if(rem>30):
             rem_mask = None
-        print(rem)
-    # composite the foreground and background
+        # print(rem)
+    # composite the background
     for c in range(frame.shape[2]):
         frame[:,:,c] = frame[:,:,c] * mask + background[:,:,c] * (1 - mask)
-
-    #for c in range(frame.shape[2]):
-    #    frame[:,:,c] = frame[:,:,c] * inv_f_mask + foreground[:,:,c] * f_mask
 
     return frame
 
@@ -118,7 +102,7 @@ if __name__ == '__main__':
     signal(SIGINT, handler)
     print('Running...')
     print('Please press CTRL-\ to exit.')
-    print('Please CTRL-C to reload the background and foreground images')
+    print('Please CTRL-C to reload the background image')
     # frames forever
     while True:
         frame = get_frame(cap, background)
