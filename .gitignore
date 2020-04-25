@@ -1,0 +1,4 @@
+bodypix/node_modules/
+bodypix/package-lock.json
+docker-compose*.yml
+venv/*
