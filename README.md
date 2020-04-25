@@ -1,11 +1,11 @@
 # Webcam-virtual-background
 This is a modified version of great and instructive [Linux-Fake-Background-Webcam](https://github.com/fangfufu/Linux-Fake-Background-Webcam)
 
-## What i have changed?
+## What i have changed
 * Only background replacement, no foreground object placement, is not my goal and LESS WORK for CPU;
 * the mask is not updated every frame, more performance and no motion blur flickering;
 * adjust some parameters (dilation and blur);
-* add more backgrounds (thanks to unplash and their contributors);
+* add more backgrounds [37] (thanks to unplash and their contributors);
 
 ## how change background
 If you want to change the background above in the middle of streaming, replace it
@@ -13,7 +13,6 @@ If you want to change the background above in the middle of streaming, replace i
 cp fakecam/backgrounds/unplash-backgrounds/<image_filename>.jpg fakecam/background.jpg
 ```
 and press ``CTRL-C``
-
 
 
 ## Todo
