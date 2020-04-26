@@ -7,13 +7,49 @@ This is a modified version of great and instructive [Linux-Fake-Background-Webca
 * adjust some parameters (dilation and blur);
 * add more backgrounds [37] (thanks to unplash and their contributors);
 
-## how change background
+## How change background
 If you want to change the background above in the middle of streaming, replace it
 ```
 cp fakecam/backgrounds/unplash-backgrounds/<image_filename>.jpg fakecam/background.jpg
 ```
 and press ``CTRL-C``
 
+## Install
+Install all prerequisite:
+
+```
+apt-get install python3.8  v4l2loopback-dkms
+```
+also python3.7 is ok
+
+
+If you have multiple python installation in the system you can use use virtualenv to activate the correct python version
+```
+ sudo apt-get install virtualenv
+ virtualenv -p python3.7 venv
+ source venv/bin/activate
+```
+
+Execute ./install.sh
+
+
+Load v4l2loopback
+```
+sudo modprobe v4l2loopback devices=1 exclusive_caps=1 video_nr=2 card_label="v4l2loopback"
+```
+
+Now you need to open two terminal windows. 
+In one terminal window, do the following:
+```
+  cd bodypix
+  node app.js
+```
+
+In the other terminal window, do the following:
+```
+    cd fakecam
+    python fake.py
+```
 
 ## Todo
 * UI
@@ -34,7 +70,8 @@ fiblan
 
 Feedbacks are very appreciated (fiblan@tooware.com)
 
-Information and instruction from [Linux-Fake-Background-Webcam](https://github.com/fangfufu/Linux-Fake-Background-Webcam)
+
+**Information and instruction from [Linux-Fake-Background-Webcam](https://github.com/fangfufu/Linux-Fake-Background-Webcam)**
 
 ## Background
 Video conferencing software support under Linux is relatively poor. The Linux
