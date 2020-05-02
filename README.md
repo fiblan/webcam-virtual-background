@@ -2,6 +2,7 @@
 This is a modified version of great and instructive [Linux-Fake-Background-Webcam](https://github.com/fangfufu/Linux-Fake-Background-Webcam)
 
 ## What i have changed
+* [NEW] You can use a looping video as background replacement;
 * Only background replacement, no foreground object placement, is not my goal and LESS WORK for CPU;
 * the mask is not updated every frame, more performance and no motion blur flickering;
 * adjust some parameters (dilation and blur);
@@ -65,6 +66,7 @@ thanks to :
 * [Benjamin Elder](https://elder.dev/posts/open-source-virtual-background/), 
 * [fangfufu](https://github.com/fangfufu)
 * Ianni - Giancarlo Iannizzotto (for making me fall in love with artificial vision and human-computer interaction, great teacher)
+* Pexels (looping videos), Unsplash (background images) 
 
 fiblan
 
