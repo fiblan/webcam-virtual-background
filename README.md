@@ -52,6 +52,16 @@ In the other terminal window, do the following:
     python fake.py
 ```
 
+If you want use a looping video as background you can use -t option (default:image):
+```
+python fake.py -t video
+```
+
+If you want change  the interval between two "samples" of the foreground mask you can use -m option (default:1) :
+```
+python fake.py -m 15
+```
+
 ## Todo
 * UI
 * Simplify installation and usage
