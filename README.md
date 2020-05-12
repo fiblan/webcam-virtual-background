@@ -81,7 +81,7 @@ If you get "The N-API version of this Node instance is 1. This module supports N
 If you get "node core dumps with illegal instruction" read #2
 
 
-thanks to :
+# Thanks to
 * [Benjamin Elder](https://elder.dev/posts/open-source-virtual-background/), 
 * [fangfufu](https://github.com/fangfufu)
 * Ianni - Giancarlo Iannizzotto (for making me fall in love with artificial vision and human-computer interaction, great teacher)
