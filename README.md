@@ -78,6 +78,9 @@ python fake.py -m 15
 ## tensorflow module
 If you get "The N-API version of this Node instance is 1. This module supports N-API version(s)" read #3 (ianni67)
 
+If you get "node core dumps with illegal instruction" read #2
+
+
 thanks to :
 * [Benjamin Elder](https://elder.dev/posts/open-source-virtual-background/), 
 * [fangfufu](https://github.com/fangfufu)
