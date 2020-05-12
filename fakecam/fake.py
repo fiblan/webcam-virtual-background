@@ -9,7 +9,8 @@ from sys import argv, exit
 
 height, width = 720, 1280
 rem_mask = None
-rem = 10
+rem = 0
+maskFrames = 1
 
 def load_background_image(width,height):
     # load the virtual background
@@ -38,13 +39,16 @@ def get_mask(frame, sf, bodypix_url='http://127.0.0.1:9000'):
                       interpolation=cv2.INTER_NEAREST)
     mask = cv2.dilate(mask, np.ones((15,15), np.uint8) , iterations=1)
     mask = cv2.blur(mask.astype(float), (50,50))
-    # cv2.imshow("MASK", mask)
+    #cv2.imshow("MASK", mask)
+    #cv2.waitKey(10)
     return mask
 
 def get_frame(cap, background, sf):
     global rem_mask
     global rem
+    global maskFrames
     _, frame = cap.read()
+    print ('Mask Frames' + str(maskFrames))
     # fetch the mask with retries (the app needs to warmup and we're lazy)
     # e v e n t u a l l y c o n s i s t e n t
     mask = None
@@ -59,7 +63,7 @@ def get_frame(cap, background, sf):
     else:
         mask = rem_mask
         rem+=1
-        if(rem>30):
+        if(rem>maskFrames):
             rem_mask = None
         # print(rem)
     # composite the background
@@ -70,19 +74,21 @@ def get_frame(cap, background, sf):
 
 
 def main():
-    global width, height
+    global width, height, maskFrames
     backgroundType = 'image'
     try:
-        opts, args = getopt.getopt(argv[1:],"ht:v",["type"])
+        opts, args = getopt.getopt(argv[1:],"htm:v",["type","maskFrames"])
     except getopt.GetoptError:
         print('python fake.py [-t <image|video>]')
         exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('python fake.py [-t <image|video>]')
+            print('python fake.py [-t <image|video>] [-m <numberFramesBeforeUpdateMask>]')
             exit()
         elif opt in ("-t", "--type"):
             backgroundType = arg
+        elif opt in ("-m", "--maskFrames"):
+            maskFrames = int(arg)
  
     print(backgroundType)
     # setup access to the *real* webcam
@@ -124,7 +130,6 @@ def main():
                 # cv2.imshow("Image", background2)
                 background2Prev = background2
             else:
-                print('no video')
                 capvideo.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 background2 = background2Prev
             background = background2
