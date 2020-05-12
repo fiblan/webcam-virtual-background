@@ -2,9 +2,9 @@
 This is a modified version of great and instructive [Linux-Fake-Background-Webcam](https://github.com/fangfufu/Linux-Fake-Background-Webcam)
 
 ## What i have changed
-* [NEW] You can use a looping video as background replacement;
+* [NEW] You can use a looping video as background replacement ("-t video" option);
 * Only background replacement, no foreground object placement, is not my goal and LESS WORK for CPU;
-* the mask is not updated every frame, more performance and no motion blur flickering;
+* the mask is not updated every frame (-m option), more performance and no motion blur flickering;
 * adjust some parameters (dilation and blur);
 * add more backgrounds [37] (thanks to unplash and their contributors);
 
@@ -67,10 +67,16 @@ python fake.py -m 15
 * Simplify installation and usage
 
 
+
 ## Tested with 
  * Microsoft Teams 
  * Skype
  * Google Meet
+
+
+# Troubleshooting
+## tensorflow module
+If you get "The N-API version of this Node instance is 1. This module supports N-API version(s)" read #3 (ianni67)
 
 thanks to :
 * [Benjamin Elder](https://elder.dev/posts/open-source-virtual-background/), 
